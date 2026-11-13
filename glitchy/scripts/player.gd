@@ -6,15 +6,16 @@ const JUMP_VELOCITY = -600.0
 @onready var dash_length: Timer = $dash_length
 @onready var dash_cooldown: Timer = $dash_cooldown
 @onready var player: CharacterBody2D = $"."
+@onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 
 
 # Dash function
 func dash():
 	dash_length.start()
 	dash_cooldown.start()
-	SPEED *= 10
+	SPEED *= 5
 func _on_dash_length_timeout() -> void:
-	SPEED /=10
+	SPEED /= 5
 
 # Glitch (world change) function
 func glitch():
@@ -40,6 +41,22 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("move_right", "move_left")
+	
+	# Flip sprite depending on direction
+	if direction > 0:
+		animation.flip_h = false
+	elif direction < 0:
+		animation.flip_h = true
+		
+	# Play idle, jump, moving animation
+	# !!!!! DASH ANIMATION DOESNT WORK PLEASE FIX LATER
+	if direction == 0 and is_on_floor():
+		animation.play("idle")
+	elif not is_on_floor():
+		animation.play("jump")
+	else:
+		animation.play("move")
+	
 	if direction:
 		velocity.x = direction * SPEED
 	else:
