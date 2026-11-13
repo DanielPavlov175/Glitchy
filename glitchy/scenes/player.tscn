@@ -18,3 +18,12 @@ shape = SubResource("RectangleShape2D_4ui7d")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=116328230]
 position_smoothing_enabled = true
+
+[node name="dash_length" type="Timer" parent="." unique_id=1327242160]
+wait_time = 0.1
+one_shot = true
+
+[node name="dash_cooldown" type="Timer" parent="." unique_id=378914251]
+one_shot = true
+
+[connection signal="timeout" from="dash_length" to="." method="_on_dash_length_timeout"]
