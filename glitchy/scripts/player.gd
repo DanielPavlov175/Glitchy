@@ -1,18 +1,32 @@
 extends CharacterBody2D
 
 
-var SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+var SPEED = 600.0
+const JUMP_VELOCITY = -600.0
 @onready var dash_length: Timer = $dash_length
 @onready var dash_cooldown: Timer = $dash_cooldown
+@onready var player: CharacterBody2D = $"."
 
 
+# Dash function
 func dash():
 	dash_length.start()
 	dash_cooldown.start()
 	SPEED *= 10
 func _on_dash_length_timeout() -> void:
 	SPEED /=10
+
+# Glitch (world change) function
+func glitch():
+	if manager.current_world==manager.world.city:
+		player.set_collision_mask_value(2,true)
+		player.set_collision_mask_value(1,false)
+		manager.current_world = manager.world.nature
+	elif  manager.current_world==manager.world.nature:
+		player.set_collision_mask_value(1,true)
+		player.set_collision_mask_value(2,false)
+		manager.current_world = manager.world.city
+	
 
 
 func _physics_process(delta: float) -> void:
@@ -34,5 +48,9 @@ func _physics_process(delta: float) -> void:
 	# Handle dashing
 	if Input.is_action_just_pressed("dash") and dash_cooldown.is_stopped():
 		dash()
+		
+	# Handle glitching (changing worlds)
+	if Input.is_action_just_pressed("glitch"):
+		glitch()
 
 	move_and_slide()
