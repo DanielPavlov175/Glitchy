@@ -165,3 +165,10 @@ offset_top = -632.0
 offset_right = 11152.0
 offset_bottom = -514.88617
 text = "We pulled an all-nighter for this shit"
+
+[node name="Label2" type="Label" parent="." unique_id=349307386]
+offset_left = 11332.0
+offset_top = -624.0
+offset_right = 11672.0
+offset_bottom = -524.0
+text = "Congratulations, you beat this game. Sorry"
