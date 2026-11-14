@@ -9,6 +9,7 @@ var braking: float = 10000.0
 
 @onready var dash_length: Timer = $dash_length
 @onready var dash_cooldown: Timer = $dash_cooldown
+@onready var coyote_timer: Timer = $coyote_timer
 @onready var player: CharacterBody2D = $"."
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -37,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or !coyote_timer.is_stopped()):
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
@@ -55,8 +56,13 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("glitch"):
 		glitch()
 	
+	var was_on_floor = is_on_floor()
+	
 	move_and_slide()
 	update_animation()
+	
+	if was_on_floor && !is_on_floor():
+		coyote_timer.start()
 	
 # Update the horizontal movement based on input and dash
 func update_horizontal_movement(direction: float, delta: float) -> void:

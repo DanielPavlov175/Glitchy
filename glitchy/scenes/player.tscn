@@ -131,4 +131,8 @@ one_shot = true
 [node name="dash_cooldown" type="Timer" parent="." unique_id=378914251]
 one_shot = true
 
+[node name="coyote_timer" type="Timer" parent="." unique_id=882932919]
+wait_time = 0.15
+one_shot = true
+
 [connection signal="timeout" from="dash_length" to="." method="_on_dash_length_timeout"]
