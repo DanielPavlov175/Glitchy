@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://db4ug3xneu0ss"]
+
+[ext_resource type="Script" uid="uid://q7qhds8ckw00" path="res://scripts/disapear_city.gd" id="1_t4akn"]
+[ext_resource type="Texture2D" uid="uid://bxepvkoa0o47i" path="res://assets/city_platform.png" id="2_sofox"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ui7d"]
+size = Vector2(192, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y78md"]
+size = Vector2(191, 20)
+
+[node name="disapear_city" type="StaticBody2D" unique_id=2100539334]
+script = ExtResource("1_t4akn")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=291650460]
+texture = ExtResource("2_sofox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1059250158]
+shape = SubResource("RectangleShape2D_4ui7d")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=963064978]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1163204207]
+position = Vector2(0.5, -45)
+shape = SubResource("RectangleShape2D_y78md")
+
+[node name="Timer" type="Timer" parent="." unique_id=160122066]
+wait_time = 0.6
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
