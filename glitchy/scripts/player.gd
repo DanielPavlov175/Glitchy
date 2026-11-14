@@ -77,13 +77,13 @@ func update_horizontal_movement(direction: float, delta: float) -> void:
 
 #update the animation based on the player's state
 func update_animation() -> void:
-    var next_animation: String = "idle"
+	var next_animation: String = "idle"
 
-    if not is_on_floor():
-        next_animation = "jump"
-    elif absf(velocity.x) > 1.0:
-        next_animation = "move"
+	if not is_on_floor():
+		next_animation = "jump"
+	elif absf(velocity.x) > 1.0:
+		next_animation = "move"
 
-    if next_animation != current_movement_animation:
-        animation.play(next_animation)
-        current_movement_animation = next_animation
+	if next_animation != current_movement_animation:
+		animation.play(next_animation)
+	current_movement_animation = next_animation
