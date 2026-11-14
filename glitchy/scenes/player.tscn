@@ -125,15 +125,15 @@ z_index = 67
 zoom = Vector2(1.2, 1.2)
 position_smoothing_enabled = true
 
-[node name="dash_length" type="Timer" parent="." unique_id=1327242160]
+[node name="DashLenght" type="Timer" parent="." unique_id=1327242160]
 wait_time = 0.08
 one_shot = true
 
-[node name="dash_cooldown" type="Timer" parent="." unique_id=378914251]
+[node name="DashCD" type="Timer" parent="." unique_id=378914251]
 one_shot = true
 
-[node name="coyote_timer" type="Timer" parent="." unique_id=882932919]
-wait_time = 0.15
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=882932919]
+wait_time = 0.1
 one_shot = true
 
-[connection signal="timeout" from="dash_length" to="." method="_on_dash_length_timeout"]
+[connection signal="timeout" from="DashLenght" to="." method="_on_dash_length_timeout"]
