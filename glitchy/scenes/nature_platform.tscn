@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bbkug7y227ul5"]
+
+[ext_resource type="Texture2D" uid="uid://yhxbkrlprls1" path="res://assets/nature_platform.png" id="1_5erql"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ui7d"]
+size = Vector2(192, 64)
+
+[node name="nature_platform" type="AnimatableBody2D" unique_id=99103272]
+z_index = 1
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=5249365]
+texture = ExtResource("1_5erql")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1085658573]
+shape = SubResource("RectangleShape2D_4ui7d")
