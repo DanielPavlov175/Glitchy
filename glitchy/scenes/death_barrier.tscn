@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://25wa6os50kau"]
 
-[ext_resource type="Script" uid="uid://cnen8125wwfy4" path="res://scripts/death_barrier.gd" id="1_cg6e6"]
+[ext_resource type="Script" uid="uid://shlqqa6tsd6i" path="res://scripts/death_barrier.gd" id="1_cg6e6"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_g4v7s"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_y78md"]
 
-[node name="Node2D" type="Area2D" unique_id=1112243285]
+[node name="death_barrier" type="Area2D" unique_id=1272496194]
 script = ExtResource("1_cg6e6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1887070911]
-shape = SubResource("WorldBoundaryShape2D_g4v7s")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=98553654]
+shape = SubResource("WorldBoundaryShape2D_y78md")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
