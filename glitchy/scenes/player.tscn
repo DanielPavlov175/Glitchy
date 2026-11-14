@@ -124,7 +124,7 @@ shape = SubResource("RectangleShape2D_4ui7d")
 position_smoothing_enabled = true
 
 [node name="dash_length" type="Timer" parent="." unique_id=1327242160]
-wait_time = 0.1
+wait_time = 0.08
 one_shot = true
 
 [node name="dash_cooldown" type="Timer" parent="." unique_id=378914251]

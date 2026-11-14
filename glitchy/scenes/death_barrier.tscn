@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://25wa6os50kau"]
+
+[ext_resource type="Script" uid="uid://cnen8125wwfy4" path="res://scripts/death_barrier.gd" id="1_cg6e6"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_g4v7s"]
+
+[node name="Node2D" type="Area2D" unique_id=1112243285]
+script = ExtResource("1_cg6e6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1887070911]
+shape = SubResource("WorldBoundaryShape2D_g4v7s")

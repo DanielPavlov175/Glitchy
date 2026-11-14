@@ -1,34 +1,35 @@
 extends CharacterBody2D
 
-
-var SPEED = 600.0
 const JUMP_VELOCITY = -600.0
+const DASH_MULTIPLIER = 5.0
+
+var run_speed: float = 600.0
+var acceleration: float = 7500.0
+var braking: float = 10000.0
+
 @onready var dash_length: Timer = $dash_length
 @onready var dash_cooldown: Timer = $dash_cooldown
 @onready var player: CharacterBody2D = $"."
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 
+var current_movement_animation: String = ""
 
 # Dash function
 func dash():
 	dash_length.start()
 	dash_cooldown.start()
-	SPEED *= 5
-func _on_dash_length_timeout() -> void:
-	SPEED /= 5
 
 # Glitch (world change) function
 func glitch():
-	if manager.current_world==manager.world.city:
-		player.set_collision_mask_value(2,true)
-		player.set_collision_mask_value(1,false)
+	if manager.current_world == manager.world.city:
+		player.set_collision_mask_value(2, true)
+		player.set_collision_mask_value(1, false)
 		manager.current_world = manager.world.nature
-	elif  manager.current_world==manager.world.nature:
-		player.set_collision_mask_value(1,true)
-		player.set_collision_mask_value(2,false)
+	elif manager.current_world == manager.world.nature:
+		player.set_collision_mask_value(1, true)
+		player.set_collision_mask_value(2, false)
 		manager.current_world = manager.world.city
 	
-
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -43,31 +44,42 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_right", "move_left")
 	
 	# Flip sprite depending on direction
-	if direction > 0:
-		animation.flip_h = false
-	elif direction < 0:
-		animation.flip_h = true
+	if direction != 0.0:
+		animation.flip_h = direction < 0.0
 		
-	# Play idle, jump, moving animation
-	# !!!!! DASH ANIMATION DOESNT WORK PLEASE FIX LATER
-	if direction == 0 and is_on_floor():
-		animation.play("idle")
-	elif not is_on_floor():
-		animation.play("jump")
-	else:
-		animation.play("move")
-	
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		
-	# Handle dashing
 	if Input.is_action_just_pressed("dash") and dash_cooldown.is_stopped():
 		dash()
-		
-	# Handle glitching (changing worlds)
+
+	update_horizontal_movement(direction, delta)
+
 	if Input.is_action_just_pressed("glitch"):
 		glitch()
-
+	
 	move_and_slide()
+	update_animation()
+	
+# Update the horizontal movement based on input and dash
+func update_horizontal_movement(direction: float, delta: float) -> void:
+	if not dash_length.is_stopped():
+		velocity.x = direction * run_speed * DASH_MULTIPLIER
+		return
+
+	# Drop back to regular speed as soon as the dash ends.
+	velocity.x = clampf(velocity.x, -run_speed, run_speed)
+
+	var target_speed := direction * run_speed
+	var rate := braking if direction == 0.0 else acceleration
+	velocity.x = move_toward(velocity.x, target_speed, rate * delta)
+
+# Update the animation based on the player's state
+func update_animation() -> void:
+	var next_animation: String = "idle"
+
+	if not is_on_floor():
+		next_animation = "jump"
+	elif absf(velocity.x) > 1.0:
+		next_animation = "move"
+
+	if next_animation != current_movement_animation:
+		animation.play(next_animation)
+		current_movement_animation = next_animation
