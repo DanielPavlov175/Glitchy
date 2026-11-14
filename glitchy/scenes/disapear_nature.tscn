@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://0j0mndah6xn1"]
+
+[ext_resource type="Script" uid="uid://bo6wb8ns72c88" path="res://scripts/disapear_nature.gd" id="1_0eksb"]
+[ext_resource type="Texture2D" uid="uid://yhxbkrlprls1" path="res://assets/nature_platform.png" id="2_66fu7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ui7d"]
+size = Vector2(192, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y78md"]
+size = Vector2(191, 15)
+
+[node name="disapear_nature" type="StaticBody2D" unique_id=1741363885]
+collision_layer = 2
+script = ExtResource("1_0eksb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=828005110]
+texture = ExtResource("2_66fu7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1029213289]
+shape = SubResource("RectangleShape2D_4ui7d")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1337914498]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1234329860]
+position = Vector2(0, -45)
+shape = SubResource("RectangleShape2D_y78md")
+
+[node name="Timer" type="Timer" parent="." unique_id=514271910]
+wait_time = 0.6
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
