@@ -121,6 +121,7 @@ position = Vector2(1, 26)
 shape = SubResource("RectangleShape2D_4ui7d")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=116328230]
+z_index = 67
 position_smoothing_enabled = true
 
 [node name="dash_length" type="Timer" parent="." unique_id=1327242160]

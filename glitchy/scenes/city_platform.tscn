@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://coqs883510hx1"]
+
+[ext_resource type="Texture2D" uid="uid://bxepvkoa0o47i" path="res://assets/city_platform.png" id="1_hhvgh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ui7d"]
+size = Vector2(192, 64)
+
+[node name="city_platform" type="AnimatableBody2D" unique_id=2044200949]
+z_index = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1293280340]
+texture = ExtResource("1_hhvgh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=403567581]
+shape = SubResource("RectangleShape2D_4ui7d")
