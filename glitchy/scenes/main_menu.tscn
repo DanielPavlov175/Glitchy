@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dwmisai0bl815" path="res://scripts/main_menu.gd" id="1_ekxnf"]
 [ext_resource type="FontFile" uid="uid://dkmqsraebmpvm" path="res://assets/Terraria.TTF" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://d16hpmeuhiobo" path="res://assets/ai_slop1.png" id="2_bqqt6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5rvnl"]
+texture = ExtResource("2_bqqt6")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ui7d"]
 bg_color = Color(1, 1, 1, 1)
@@ -27,6 +31,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ekxnf")
+
+[node name="Panel" type="Panel" parent="." unique_id=912605930]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_5rvnl")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1350494962]
 layout_mode = 1
